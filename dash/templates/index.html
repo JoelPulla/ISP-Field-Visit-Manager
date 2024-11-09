@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Sistema de Gestión</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMWjmr5G7BxT8EFUIu6V1QWl2xJvxeF6rjVqz4A" crossorigin="anonymous">
+</head>
+<body class="bg-gray-900 text-gray-200 font-sans">
+
+<!-- Contenedor Principal -->
+<div class="flex min-h-screen">
+
+  <!-- Sidebar -->
+  <div class="w-64 bg-gray-800 hidden md:flex flex-col">
+    <div class="p-6 text-center text-2xl font-bold border-b border-gray-700 text-gray-100">
+      <i class="fas fa-cogs mr-2"></i> Dashboard
+    </div>
+    <nav class="flex-1 p-4 space-y-4">
+      <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg">
+        <i class="fas fa-home mr-3"></i> Inicio
+      </a>
+      <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg">
+        <i class="fas fa-user mr-3"></i> Clientes
+      </a>
+      <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg">
+        <i class="fas fa-file-alt mr-3"></i> Ordenes de Servicio
+      </a>
+      <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg">
+        <i class="fas fa-chart-line mr-3"></i> Reportes
+      </a>
+      <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg">
+        <i class="fas fa-cog mr-3"></i> Configuración
+      </a>
+    </nav>
+    <div class="p-4 border-t border-gray-700">
+      <button class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg w-full">
+        <i class="fas fa-sign-out-alt mr-3"></i> Cerrar Sesión
+      </button>
+    </div>
+  </div>
+
+  <!-- Contenido Principal -->
+  <div class="flex-1 p-6 md:ml-64 flex flex-col items-center">
+    <h1 class="text-4xl font-bold text-gray-100 mb-8 text-center">Panel de Control</h1>
+
+    <!-- Tarjetas del Dashboard -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl w-full">
+      <!-- Tarjeta: Ver Clientes -->
+      <div class="bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col items-center text-center">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-user text-blue-500 text-3xl mr-2"></i>
+          <h2 class="text-2xl font-semibold text-gray-100">Ver Clientes</h2>
+        </div>
+        <p class="text-gray-300 mb-4">Consulta la lista de clientes registrados en el sistema.</p>
+        <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg inline-block">
+          Ir a Clientes
+        </a>
+      </div>
+
+      <!-- Tarjeta: Crear Orden de Servicio -->
+      <div class="bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col items-center text-center">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-file-alt text-green-500 text-3xl mr-2"></i>
+          <h2 class="text-2xl font-semibold text-gray-100">Crear Orden de Servicio</h2>
+        </div>
+        <p class="text-gray-300 mb-4">Accede al formulario para crear una nueva orden de servicio.</p>
+        <a href="#" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg inline-block">
+          Nueva Orden
+        </a>
+      </div>
+
+      <!-- Tarjeta: Reportes -->
+      <div class="bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col items-center text-center">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-chart-line text-yellow-500 text-3xl mr-2"></i>
+          <h2 class="text-2xl font-semibold text-gray-100">Reportes</h2>
+        </div>
+        <p class="text-gray-300 mb-4">Genera reportes detallados sobre clientes y órdenes de servicio.</p>
+        <a href="#" class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg inline-block">
+          Ver Reportes
+        </a>
+      </div>
+
+      <!-- Tarjeta: Configuración -->
+      <div class="bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col items-center text-center">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-cog text-red-500 text-3xl mr-2"></i>
+          <h2 class="text-2xl font-semibold text-gray-100">Configuración</h2>
+        </div>
+        <p class="text-gray-300 mb-4">Accede a la configuración del sistema.</p>
+        <a href="#" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg inline-block">
+          Configuración
+        </a>
+      </div>
+
+      <!-- Tarjeta: Ayuda -->
+      <div class="bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col items-center text-center">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-question-circle text-purple-500 text-3xl mr-2"></i>
+          <h2 class="text-2xl font-semibold text-gray-100">Ayuda</h2>
+        </div>
+        <p class="text-gray-300 mb-4">Obtén ayuda sobre el uso del sistema.</p>
+        <a href="#" class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg inline-block">
+          Centro de Ayuda
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

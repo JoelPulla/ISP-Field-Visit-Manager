@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Sistema de Gestión</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMWjmr5G7BxT8EFUIu6V1QWl2xJvxeF6rjVqz4A" crossorigin="anonymous">
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+<div class="flex h-screen">
+  <!-- Sidebar -->
+  <div class="w-64 bg-gray-800 text-white flex flex-col">
+    <div class="p-6 text-center text-2xl font-bold border-b border-gray-700">
+      <i class="fas fa-cogs mr-2"></i> Dashboard
+    </div>
+    <nav class="flex-1 p-4">
+      <ul>
+        <li class="mb-4">
+          <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg">
+            <i class="fas fa-home mr-3"></i> Inicio
+          </a>
+        </li>
+        <li class="mb-4">
+          <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg">
+            <i class="fas fa-user mr-3"></i> Clientes
+          </a>
+        </li>
+        <li class="mb-4">
+          <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg">
+            <i class="fas fa-file-alt mr-3"></i> Ordenes de Servicio
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg">
+            <i class="fas fa-chart-line mr-3"></i> Reportes
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="p-4 border-t border-gray-700">
+      <button class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg w-full">
+        <i class="fas fa-sign-out-alt mr-3"></i> Cerrar Sesión
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-1 p-6">
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">Panel de Control</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Card 1: Crear Orden de Servicio -->
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-file-alt text-blue-500 text-2xl mr-4"></i>
+          <h2 class="text-xl font-bold text-gray-700">Crear Orden de Servicio</h2>
+        </div>
+        <p class="text-gray-600 mb-4">Accede al formulario para crear una nueva orden de servicio para los clientes.</p>
+        <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg w-full">
+          Crear Orden
+        </button>
+      </div>
+
+      <!-- Card 2: Administrar Clientes -->
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-user text-green-500 text-2xl mr-4"></i>
+          <h2 class="text-xl font-bold text-gray-700">Administrar Clientes</h2>
+        </div>
+        <p class="text-gray-600 mb-4">Consulta, edita o elimina los datos de los clientes registrados.</p>
+        <button class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg w-full">
+          Ver Clientes
+        </button>
+      </div>
+
+      <!-- Card 3: Reportes -->
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <div class="flex items-center mb-4">
+          <i class="fas fa-chart-line text-yellow-500 text-2xl mr-4"></i>
+          <h2 class="text-xl font-bold text-gray-700">Reportes</h2>
+        </div>
+        <p class="text-gray-600 mb-4">Genera reportes detallados sobre el historial de órdenes y clientes.</p>
+        <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg w-full">
+          Generar Reporte
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
