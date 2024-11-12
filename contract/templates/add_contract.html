@@ -1,0 +1,20 @@
+Formulario de contrato del cleitne 
+
+{% extends "base.html" %}
+{% block content %}
+
+<form action="{% url "create_contract" %}" method="post">
+    {% csrf_token %} {% load crispy_forms_tags %}
+    {{ form|crispy }}
+    <button type="submit"> Registrar</button>
+</form>
+
+{% endblock content %}
+
+
+
+
+
+
+
+

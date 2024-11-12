@@ -8,3 +8,7 @@ class Customer(models.Model):
     address = models.CharField(max_length=50, null=False, verbose_name="Dirección")
     number = models.CharField( max_length=10, null= False, verbose_name="Número")
     mail = models.EmailField(null=True, verbose_name="Correo electronico" )
+    
+    def __str__(self):
+        return self.name
+    

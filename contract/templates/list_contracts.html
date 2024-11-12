@@ -1,0 +1,10 @@
+aqui va la lista de los contratos 
+
+{% extends "base.html" %}
+{% block content %}
+
+{% for contract in contracts %}
+    <h1> Contrato {{contract.id}} </h1>
+{% endfor %}
+
+{% endblock content %}

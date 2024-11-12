@@ -8,6 +8,9 @@ class Plan(models.Model):
     mgbytes = models.CharField(max_length=4, null= False, verbose_name="Megabytes")
     price= models.FloatField( verbose_name="Precio")
     
+    def __str__(self):
+        return self.name
+    
     
 class Contract(models.Model):
     address = models.CharField(max_length=50, verbose_name="Direccion", null=False)
@@ -19,10 +22,15 @@ class Contract(models.Model):
     is_active = models.BooleanField(default=True, verbose_name="Status Activo ")
     created_at= models.DateTimeField(auto_now_add=True)
     
+    #relacion 1 a 1 con plan
     plan = models.OneToOneField(Plan, on_delete=models.CASCADE)
-    Customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=False, blank=False)
+    #relacion de 1 a m
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=False, blank=False)
     
+    def __str__(self):
+        return self.id
     
+
     
     # Nota: Crear el resto de lalogoica para este modelo, urls, vistas y templeates
     # lo unico resulto es el lista de cliente mas la creacion pero falta validadciones y operaciones
