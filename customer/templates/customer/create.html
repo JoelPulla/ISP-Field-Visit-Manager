@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{{error}}
+
+
+    <h2 >Crear Nuevo Cliente</h2>
+    <form action="{% url "create_customer" %}" method="POST" >
+      {% csrf_token %} 
+      
+      {{ form }}
+  
+      <button type="submit" >
+        Guardar Cliente
+      </button>
+    </form>
+
+{% endblock content %}
+
+
+
+

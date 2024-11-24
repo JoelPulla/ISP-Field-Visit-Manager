@@ -1,8 +1,10 @@
 from django.urls import path
 
-from .views import CustomerFormView, CustomerListView
+from .views import *
 
 urlpatterns = [
-    path("create/",CustomerFormView.as_view(), name="create_customer"),
-    path("all/",CustomerListView.as_view(), name="all_customers" )
+    
+    path("",CustomerListView.as_view(), name="all_customers" ),
+    path("create/", create_customer, name="create_customer"),
+    path("<int:id_customer>/delete/", delete_customer, name="delete_customer")
 ]
