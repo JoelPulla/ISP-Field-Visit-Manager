@@ -1,5 +1,9 @@
 {% for customer in customers %}
-  Nombre 
-  <h1>{{customer.name}} </h1>
+  
+  <h1>{{customer.name}} {{customer.last_name}}</h1>
+
+  <a href="{% url "detail_customer" customer.id %}">
+    ver detalle
+  </a>
 
 {% endfor %}

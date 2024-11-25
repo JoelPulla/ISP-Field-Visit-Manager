@@ -11,7 +11,7 @@ urlpatterns = [
     path("", HomeView),
     path('admin/', admin.site.urls),
     path('users/', include('users.urls') ),
-    path("customers/", include("customer.urls")),
+    path("customer/", include("customer.urls")),
     path("contract/", include("contract.urls"))
     
 ]
