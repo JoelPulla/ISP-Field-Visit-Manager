@@ -11,4 +11,4 @@ class Profile(models.Model):
     ])
     
     def __str__(self):
-        return self.rol
+        return f"{self.user.first_name}"

@@ -12,12 +12,25 @@
     </button>
 </form>
 
-
+<a  href= "{% url "update_customer" customer.id %}">
+    <button>
+        actualizar
+    </button>
+</a>
 
 ################### contracts ############################
+<a href="{% url "create_contract" customer.id %}"> crear nuevo contrato </a>
+
 
 {% for contract in contracts %}
-    hay contrato
+    <h3> {{contract.address}} {{contract.megabytes}}</h3>
+    <h3> {{contract.plan}}</h3>
+    #####Actions #####
+
+    <a href = "{% url "create_order" contract.id %}"> 
+        crear soporte
+    </a>
+
 {% empty %}
 
 <h1> No hay datos para mostrar</h1>

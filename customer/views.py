@@ -4,11 +4,9 @@ from django.urls import reverse_lazy
 
 from .forms import CustomerForm
 from .models import Customer
-from contract.models import Contract
 from contract.views import contracts_by_user
 # Create your views here.
 
-#mejorar logica de creacion evitar usaurios con el mismo numero y con mismo bombre 
 
 
 def detail_customer(request, id_customer):
@@ -21,49 +19,29 @@ def detail_customer(request, id_customer):
         "contracts": contracts
     })
 
-
-
-
-#realizar los cambios propuestos por chat gpt para resumir la logica y separar responsabilidades
-
-
 def create_customer(request ):
     
     if request.method == 'GET':
         return render(request, 'customer/create.html',{
             'form' : CustomerForm
-        } )
-    else: 
-        
-        ci = request.POST.get('ci')
-            
+        })
+    else:
         form = CustomerForm(request.POST)
-        new_customer = form.save(commit=False)
-        filter_user = Customer.objects.filter(ci=ci)
-        
-        try:
-            if not filter_user:
-                new_customer.name = new_customer.name.lower()
-                new_customer.last_name = new_customer.last_name.lower()
+        if form.is_valid():
+            try:
+                new_customer = form.save(commit=False)
                 new_customer.save()
                 return redirect("all_customers")
-            else:
+
+            except Exception as error:
                 return render(request, 'customer/create.html',{
-                    'error': "error al crear un cliente por que ya existe con ese numero de identificacion",
-                    'form':CustomerForm
+                    'form': form,
+                    'error': f"Error al guardar el cliente por: {error}"
                 })
-        except Exception as error:
-            return render(request, 'customer/create.html',{
-                    'error': f"error en el servidor por: {error}"
-                })
-    
-    
-    
-    
-    
-    
-    
-    
+        else:
+            return render(request,"customer/create.html", {
+                'form': form
+            })
     
     
     
@@ -73,15 +51,20 @@ def create_customer(request ):
     
 def update_customer(request, id_customer):
     customer = get_object_or_404(Customer, pk =id_customer)
+    
     if request.method == "GET":
         form = CustomerForm(instance=customer)
         return render(request, "customer/edit.html", {
-            'form' : 'form'
+            'form' : form
         })
     else:
         form = CustomerForm(request.POST, instance=customer)
-        form.save()
-        return redirect("index")
+        if form.is_valid():
+            form.save()
+            return redirect("detail_customer", id_customer)
+        else:
+            return render(request, "customer/edit.html", {'form': form})
+
             
 def delete_customer(request, id_customer):
     if request.method == 'POST':

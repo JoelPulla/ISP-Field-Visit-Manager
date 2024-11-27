@@ -2,8 +2,9 @@
 
 {% block content %}
 
-{{error}}
-
+{% if error %}
+        <div style="color: red;">{{ error }}</div>
+    {% endif %}
 
     <h2 >Crear Nuevo Cliente</h2>
     <form action="{% url "create_customer" %}" method="POST" >
