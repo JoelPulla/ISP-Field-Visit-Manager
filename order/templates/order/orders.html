@@ -1,0 +1,19 @@
+aqui van las ordenes 
+
+<h1>ordenes pendientes </h1>
+<p> {{orders_pending}}</p>
+
+<h2>Ordenes completas  </h2>
+<p> {{orders_complet}}</p>
+
+<h2>Ordenes creadas  </h2>
+<p> {{total_orders}}</p>
+
+
+
+<h1>lista de ordenes </h1>
+{% for order in orders %}
+<h1> {{order.id}}</h1>
+
+
+{% endfor %}

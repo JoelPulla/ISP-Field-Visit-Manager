@@ -19,6 +19,7 @@ class Order(models.Model):
         PENDING = 0,gettext_lazy("Pendiente")
         IN_PROCESS = 1, gettext_lazy("En progreso")
         COMPLETE = 2, gettext_lazy("Completo")
+        CANCELED = 3, gettext_lazy("Cancelado")
     
     status = models.IntegerField(default=StatusChoice.PENDING, choices=StatusChoice.choices)
     assigned_date= models.DateField(verbose_name="Fecha preferencial")
@@ -29,7 +30,7 @@ class Order(models.Model):
     type = models.ForeignKey(Type,on_delete=models.PROTECT, null=False)
     contract = models.ForeignKey(Contract, on_delete=models.PROTECT, related_name="Responsable")
     user = models.ForeignKey(User, on_delete=models.PROTECT)
-    order_attetions = models.OneToOneField("Order_attentions", verbose_name=("Orden de solucion "), on_delete=models.CASCADE)
+    order_attetions = models.OneToOneField("Order_attentions", verbose_name=("Orden de solucion "), on_delete=models.SET_NULL, null=True, blank=True)
     
     def __str__(self) -> str:
         return super().__str__()
