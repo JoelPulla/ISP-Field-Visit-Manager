@@ -2,20 +2,32 @@
 
 {% block content %}
 
-{% if error %}
-        <div style="color: red;">{{ error }}</div>
-    {% endif %}
+{{error}}
 
-    <h2 >Crear Nuevo Cliente</h2>
-    <form action="{% url "create_customer" %}" method="POST" >
-      {% csrf_token %} 
-      
-      {{ form }}
-  
-      <button type="submit" >
-        Guardar Cliente
-      </button>
+ <!-- Formulario Crear Cliente -->
+ <main class="p-6">
+  <div class="bg-white shadow-lg rounded-lg p-6">
+    <form action="#" method="POST">
+      {% csrf_token %}
+      {% load tailwind_filters %}
+      {{ form|crispy }}
+      <!-- Botones -->
+      <div class="mt-6 flex justify-end space-x-4">
+        <a href="{% url "index" %}" class="px-6 py-2 text-gray-700 bg-gray-300 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500">
+          Cancelar
+        </a>
+        <button type="reset" class="px-6 py-2 text-gray-700 bg-gray-300 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500">
+          Limpiar
+        </button>
+        <button type="submit" class="px-6 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          Crear Cliente
+        </button>
+      </div>
     </form>
+  </div>
+</main>
+
+
 
 {% endblock content %}
 

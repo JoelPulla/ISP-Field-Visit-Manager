@@ -1,38 +1,149 @@
-<h1> {{customer.name}}</h1>
-
-{% if not customer.is_active %}
-    <h1>  🔴 Inactivo{{customer.is_active}}</h1>
-{% endif %}
-<h1> 🟢 Es Activo</h1>
-
-<form method= "POST" action= "{% url "delete_customer" customer.id %}">
-    {% csrf_token %}
-    <button>
-        eliminar
-    </button>
-</form>
-
-<a  href= "{% url "update_customer" customer.id %}">
-    <button>
-        actualizar
-    </button>
-</a>
-
-################### contracts ############################
-<a href="{% url "create_contract" customer.id %}"> crear nuevo contrato </a>
+{% extends "base.html" %}
+{% block content %}
 
 
-{% for contract in contracts %}
-    <h3> {{contract.address}} {{contract.megabytes}}</h3>
-    <h3> {{contract.plan}}</h3>
-    #####Actions #####
+<div class="flex-1 p-6">
+  <!-- Profile Card -->
+  <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6">
+    <!-- Header with background for better contrast -->
+    <div
+      class="flex items-center justify-between bg-gradient-to-r from-blue-700 to-blue-600 text-white py-4 px-6"
+    >
+      <div class="flex items-center">
+        {% if not customer.is_active %}
+        <div class="rounded-full bg-red p-2">
+            🔴
+        </div>
+        {% endif %}
 
-    <a href = "{% url "create_order" contract.id %}"> 
-        crear soporte
+        <div class="rounded-full bg-green p-2">
+            🟢
+        </div>
+        <div class="ml-4">
+          <h2 class="text-3xl font-semibold">{{customer.name}} {{customer.last_name}}</h2>
+          <p class="text-lg">{{customer.created_at}}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Details -->
+    <div class="p-6 space-y-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <p class="font-semibold text-gray-600">Identificacion :</p>
+          <p class="text-gray-700">{{customer.ci}}</p>
+        </div>
+        <div>
+          <p class="font-semibold text-gray-600">Correo:</p>
+          <p class="text-gray-700">{{customer.mail}}</p>
+        </div>
+        <div>
+          <p class="font-semibold text-gray-600">Dirección:</p>
+          <p class="text-gray-700">{{customer.address}}</p>
+        </div>
+        <div>
+          <p class="font-semibold text-gray-600">Número:</p>
+          <p class="text-gray-700">{{customer.number}}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons (Edit, Delete, Create Contract) -->
+    <div class="p-6 flex justify-end space-x-4">
+      <!-- Edit Button (Yellow) -->
+      <a href="{% url "update_customer" customer.id %}"
+        class="px-4 py-2 text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-300 rounded-lg"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-pencil-square"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+          />
+          <path
+            fill-rule="evenodd"
+            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"
+          />
+        </svg>
     </a>
 
-{% empty %}
+    <form method="POST" action="{% url "delete_customer"  customer.id%} " >
+        {%csrf_token%}
 
-<h1> No hay datos para mostrar</h1>
+    <button type="submit"
+        class="px-4 py-2 text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-red-300 rounded-lg"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-trash3-fill"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"
+          />
+        </svg>
+    </button>
+    </form>
 
-{% endfor %}
+
+      <!-- Create Contract Button (Green) -->
+      {% if customer.is_active %}
+      <a href="{% url "create_contract" customer.id %}"
+      class="px-4 py-2 text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 rounded-lg">
+      Crear Contrato
+        </a>
+      {% endif %}
+
+      
+    </div>
+  </div>
+
+  <!-- Contracts Section -->
+  <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6">
+    <div class="px-6 py-4 bg-gray-100 text-gray-700 font-semibold text-xl">
+      Contratos
+    </div>
+
+    <div class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      {% for contract in contracts %}
+      
+      <!-- Contract Card Example -->
+      <div class="bg-white shadow-lg rounded-lg p-4">
+        <h3 class="text-lg font-semibold">Contrato #{{contract.id}} -- {{contract.plan}}</h3>
+        
+        <div class="mt-4">
+          <p class="text-gray-600"><strong>Dirección:</strong> {{contract.address}}</p>
+          {% if not contract.is_active %}
+          <p class="text-gray-600"><strong>Activo:</strong> No</p>
+          {% endif %}
+          <p class="text-gray-600"><strong>Activo:</strong> Sí</p>
+          <p class="text-gray-600"><strong>Creado el:</strong> {{contract.created_at}}</p>
+        </div>
+        
+        <div class="mt-4">
+          <a href="{% url "detail_contract" contract.id %}" class="inline-block px-6 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">Ver detalles</a>
+        </div>
+      </div>
+      
+        
+        
+        
+        <!-- Puedes agregar más tarjetas de contratos aquí -->
+        {% endfor %}
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
+
+  

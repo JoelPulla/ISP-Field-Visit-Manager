@@ -7,7 +7,12 @@ from .models import Customer
 from contract.views import contracts_by_user
 # Create your views here.
 
-
+def all_customers():
+    
+    customers = Customer.objects.all()
+    if not customers:
+        return []
+    return customers
 
 def detail_customer(request, id_customer):
     customer = get_object_or_404(Customer, id= id_customer)
@@ -15,7 +20,6 @@ def detail_customer(request, id_customer):
     
     return render(request, "customer/detail.html",{
         "customer": customer,
-        "id" : id_customer,
         "contracts": contracts
     })
 

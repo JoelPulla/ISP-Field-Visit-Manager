@@ -1,9 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Tabla de Clientes -->
+
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg px-4 py-6">
+  <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+    <div class="w-full sm:w-auto">
+      <!-- Buscador con fondo blanco -->
+      <input type="text" id="search" class="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-64 bg-white" placeholder="Buscar cliente...">
+    </div>
+    <div class="w-full sm:w-auto">
+      <!-- Botones de acción -->
+      <button class="px-6 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        Crear Cliente
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabla de Clientes -->
+  <table class="min-w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead class="bg-gray-100 text-xs uppercase text-gray-700">
+      <tr>
+        <th scope="col" class="px-6 py-3">ID</th>
+        <th scope="col" class="px-6 py-3">Nombre</th>
+        <th scope="col" class="px-6 py-3">Correo</th>
+        <th scope="col" class="px-6 py-3">Dirección</th>
+        <th scope="col" class="px-6 py-3">Fecha de Registro</th>
+        <th scope="col" class="px-6 py-3">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+
 {% for customer in customers %}
-  
-  <h1>{{customer.name}} {{customer.last_name}}</h1>
+      <!-- Fila 1 -->
+      <tr class="bg-white border-b hover:bg-gray-50">
+        <td class="px-6 py-4">{{customer.id}}</td>
+        <td class="px-6 py-4">{{customer.name}} {{customer.last_name}}</td>
+        <td class="px-6 py-4">juan@example.com</td>
+        <td class="px-6 py-4">Av. Siempre Viva 123</td>
+        <td class="px-6 py-4">2024-01-01</td>
+        <td class="px-6 py-4">
 
-  <a href="{% url "detail_customer" customer.id %}">
-    ver detalle
-  </a>
+          <a href="{% url "detail_customer" customer.id %}" class="px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500">Ver Detalle</a>
+        </td>
+      </tr>
+      {% endfor %}
 
-{% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}
+

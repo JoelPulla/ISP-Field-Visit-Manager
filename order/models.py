@@ -28,7 +28,7 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     #relations
     type = models.ForeignKey(Type,on_delete=models.PROTECT, null=False)
-    contract = models.ForeignKey(Contract, on_delete=models.PROTECT, related_name="Responsable")
+    contract = models.ForeignKey(Contract, on_delete=models.CASCADE, related_name="Responsable")
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     order_attetions = models.OneToOneField("Order_attentions", verbose_name=("Orden de solucion "), on_delete=models.SET_NULL, null=True, blank=True)
     

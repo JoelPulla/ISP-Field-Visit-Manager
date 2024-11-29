@@ -10,15 +10,16 @@ from .forms import OrderForm
 
 def create_order(request, contract_id):
     contract = get_object_or_404(Contract, pk = contract_id)
+    
     if not contract.is_active:
         messages.error(request, "El contrato esta inactivo por lo que no se puede crear Ordenes de servicio, Primero debes activar el contrato.")
-        return redirect('all_customers')
+        return redirect('detail_contract', contract_id)
     
     
     exist_orders = Order.objects.filter(contract_id = contract_id).exclude(status = Order.StatusChoice.COMPLETE)
     if exist_orders.exists():
         messages.error(request, "No puedes crear una nueva orden porque ya existe una orden pendiente o en progreso.")
-        return render("all_customers")
+        return redirect('detail_contract', contract_id)
         
     if request.method == "GET":
         return render (request,"order/create.html", {
@@ -73,6 +74,12 @@ def order_by_status(status):
         return []
     return orders
 
+def orders_by_contract(id_contract):
+    orders = Order.objects.filter(contract_id =id_contract)
+
+    if not orders:
+        []
+    return orders
     
 # hacer el filtro para ordenenes pendientes, completadas y cantidad de creadas con estas tenemos 3
 

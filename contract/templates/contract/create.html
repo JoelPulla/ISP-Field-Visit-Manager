@@ -1,21 +1,27 @@
-Formulario de contrato del cleitne 
-{{error}}
+{% extends "base.html" %}
 
+{% block content %}
 
-<form method="POST">
+<div class="flex justify-center items-center min-h-screen">
+  <!-- Form Card -->
+  <div class="bg-white shadow-lg rounded-lg p-6 w-96">
+    <h2 class="text-2xl font-semibold mb-4 text-center">Crear Contrato</h2>
 
-    {%csrf_token%}
-    {{form}}
+    <form method="POST">
+        {% csrf_token %}
+        {% load tailwind_filters %}
+        {{ form|crispy }}
 
-    <button>
-        crear
-    </button>
-</form>
+        
 
+        <!-- Submit Button -->
+        <div class="text-center">
+            <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
+                Crear Contrato
+            </button>
+        </div>
+    </form>
+  </div>
+</div>
 
-
-
-
-
-
-
+{% endblock %}

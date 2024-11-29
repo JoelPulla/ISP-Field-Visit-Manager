@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views import generic
-from django.urls import reverse_lazy
+from order.views import orders_by_contract
 
 from .forms import ContractForm
 from .models import Contract
+
 
 # Create your views here.
 
@@ -14,6 +14,14 @@ def contracts_by_user(id_customer):
         return []
     return contract
 
+def detail_contract(request, id_contract):
+    contract = get_object_or_404(Contract, pk = id_contract)
+    orders = orders_by_contract(id_contract)
+    return render(request, "contract/detail.html",{
+        'contract': contract,
+        'orders': orders
+    }) 
+    
 def create_contract(request, customer_id):
 
     if request.method == "GET":
@@ -46,9 +54,12 @@ def update_contract(request, contract_id, ):
     form.save()
     return redirect(request, "index",  )
     
-def delte_contract(request, id_contract):
-    contract = get_object_or_404(Contract, pk = id_contract)
+def delete_contract(request, id_contract):
+    print("HOLA MUNDO ESTE ES UN MESAJE DE PRUEBA ")
+    
     if request.method == 'POST':
+        contract = get_object_or_404(Contract, pk=id_contract)
+        id_customer = contract.customer_id
         contract.delete()
-        return redirect("detail_customer", )
+        return redirect("detail_customer", id_customer)
     

@@ -8,7 +8,7 @@ from dash.views import HomeView
 
 
 urlpatterns = [
-    path("", HomeView),
+    path("", HomeView, name="index"),
     path('admin/', admin.site.urls),
     path('users/', include('users.urls') ),
     path("customer/", include("customer.urls")),
