@@ -1,10 +1,4 @@
+lista_1 = [{'nombre':"joel"},{'nombre':"maria"},{'nombre':"fernanda"}]
 
-
-def validacion(ci):
-
-    if len(ci) != 10 :
-        if len(ci) !=13:
-            return "error "
-    return "pasas"
-
-
+for i in lista_1:
+    print(i['nombre'])

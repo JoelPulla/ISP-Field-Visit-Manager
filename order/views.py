@@ -3,6 +3,7 @@ from django.contrib import messages
 from .models import Order
 
 from contract.models import Contract
+from customer.models import Customer
 from .forms import OrderForm
 
 
@@ -33,7 +34,7 @@ def create_order(request, contract_id):
             new_order.contract = contract
             new_order.save()
             messages.success(request, "Orden creada con exito")
-            return redirect("all_customers")
+            return redirect('detail_contract', contract_id)
         else:
             return render (request,"order/create.html", {
                 'form': form
@@ -57,11 +58,7 @@ def update_order(request,order_id):
             return render(request, "order/update.html", {
             'form': form
         })
-            
-    
-    
-                
-            
+           
 def all_ordes():
     orders = Order.objects.all()
     if not orders:
@@ -81,8 +78,6 @@ def orders_by_contract(id_contract):
         []
     return orders
     
-# hacer el filtro para ordenenes pendientes, completadas y cantidad de creadas con estas tenemos 3
-
 def orders(request):
     
     orders_pending = order_by_status(0)
@@ -99,8 +94,26 @@ def orders(request):
 def delete_order(request, order_id):
     if request.method == 'POST':
         order = get_object_or_404(Order, pk= order_id)
+        contract_id = order.contract_id
         order.delete()
-        redirect("all_orders")
+        return redirect("detail_contract", contract_id)
         
+#### orders by technical 
 
-        
+def order_by_user(request):
+    # Usamos select_related para optimizar las consultas y evitar consultas N+1
+    orders = Order.objects.select_related('contract__customer').filter(user_id=1)
+
+    # Crear una lista con los datos que vamos a pasar a la plantilla
+    ords = [{
+        'order_id': order.id,
+        'type': order.type,
+        'assigned_date': order.assigned_date,
+        'preferential_time': order.preferential_time,
+        'address': order.contract.address,
+        'name': order.contract.customer.name,
+        'lat_name': order.contract.customer.last_name,
+    } for order in orders]
+
+    # Pasar los datos al template
+    return render(request, "tecnical/home_orders.html", {'ords': ords})

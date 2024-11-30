@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from customer.views import all_customers
 from order.views import order_by_status
+from django.contrib.auth.models import User
 # Create your views here.
 
 def HomeView(request):
@@ -15,3 +16,4 @@ def HomeView(request):
         'orders_complete': orders_complete,
         'customers': customers
     })
+    

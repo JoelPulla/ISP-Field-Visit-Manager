@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Órdenes del Usuario</title>
+    <!-- Puedes incluir aquí tus archivos CSS si los tienes -->
+</head>
+<body>
+    <h1>Órdenes de Usuario</h1>
+    
+    <!-- Mostrar las órdenes en una tabla -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID de Orden</th>
+                <th>Tipo</th>
+                <th>Fecha Asignada</th>
+                <th>Hora Preferencial</th>
+                <th>Dirección</th>
+                <th>Nombre Cliente</th>
+                <th>Apellido Cliente</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in ords %}
+                <tr>
+                    <td>{{ order.order_id }}</td>
+                    <td>{{ order.type }}</td>
+                    <td>{{ order.assigned_date }}</td>
+                    <td>{{ order.preferential_time }}</td>
+                    <td>{{ order.address }}</td>
+                    <td>{{ order.name }}</td>
+                    <td>{{ order.lat_name }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
