@@ -7,6 +7,8 @@ urlpatterns = [
     path("<int:contract_id>/create", create_order, name="create_order"),
     path("<int:order_id>/delete", delete_order, name="delete_order"),
     ##tecnical 
-    path("tecnico/",order_by_user, name="order_by_user")
+    path("tecnico/",order_by_user, name="order_by_user"),
+    path("tecnico/<int:order_id>/cancel_order/", cancel_order, name="cancel_order_by_user"),
+    path("tecnico/<int:order_id>/reagender/",reschecule_order, name="reschecule_order")
 ]
  

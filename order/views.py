@@ -117,3 +117,29 @@ def order_by_user(request):
 
     # Pasar los datos al template
     return render(request, "tecnical/home_orders.html", {'ords': ords})
+
+
+        
+def reschecule_order(request, order_id):
+    
+    order = get_object_or_404(Order, pk=order_id)
+    
+    if request.method == "POST":
+        return render(request, "order/reagender.html")
+        
+        
+        
+        
+
+def complete_order(request, order_id):
+    pass
+
+def cancel_order(request, order_id):
+    order = get_object_or_404(Order, id = order_id)
+    if request.method == "POST":
+        order.status = 3
+        order.save()
+        return render("order_by_user")    
+        
+        
+        

@@ -20,6 +20,7 @@
                 <th>Dirección</th>
                 <th>Nombre Cliente</th>
                 <th>Apellido Cliente</th>
+                <th> Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +33,24 @@
                     <td>{{ order.address }}</td>
                     <td>{{ order.name }}</td>
                     <td>{{ order.lat_name }}</td>
+                    <td> 
+                        <form action="{% url 'reschecule_order' order.order_id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit">reajendar</button>
+                        </form>
+                    </td>
+                    <td> 
+                        <form action="{% url 'cancel_order_by_user' order.order_id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit">Dar de baja </button>
+                        </form>
+                    </td>
+                    <td> 
+                        <form action="{% url 'cancel_order_by_user' order.order_id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit">Marcar como cancelado</button>
+                        </form>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
