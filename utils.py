@@ -1,1 +1,3 @@
-# In  my schemas 
+from datetime import date
+
+print(date.today())

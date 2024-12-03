@@ -1,1 +1,13 @@
 aqui el formulrio para reagendar
+
+<form method="POST">
+    {{error}}
+    {{form}}
+    {%csrf_token%}
+
+
+    <button type="submit">
+        reagendar
+    </button>
+
+</form>

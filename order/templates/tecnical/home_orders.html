@@ -24,6 +24,14 @@
             </tr>
         </thead>
         <tbody>
+            {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="alert {{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
             {% for order in ords %}
                 <tr>
                     <td>{{ order.order_id }}</td>
@@ -34,16 +42,15 @@
                     <td>{{ order.name }}</td>
                     <td>{{ order.lat_name }}</td>
                     <td> 
-                        <form action="{% url 'reschecule_order' order.order_id %}" method="POST">
-                            {% csrf_token %}
+                        <a href="{% url 'reschecule_order' order.order_id %}" >
                             <button type="submit">reajendar</button>
-                        </form>
+                        </a>
                     </td>
                     <td> 
-                        <form action="{% url 'cancel_order_by_user' order.order_id %}" method="POST">
+                        <a href="{% url 'complete_order' order.order_id %}" >
                             {% csrf_token %}
                             <button type="submit">Dar de baja </button>
-                        </form>
+                        </a>
                     </td>
                     <td> 
                         <form action="{% url 'cancel_order_by_user' order.order_id %}" method="POST">

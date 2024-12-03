@@ -29,7 +29,7 @@ class Order(models.Model):
     #relations
     type = models.ForeignKey(Type,on_delete=models.PROTECT, null=False)
     contract = models.ForeignKey(Contract, on_delete=models.CASCADE, related_name="Responsable")
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     order_attetions = models.OneToOneField("Order_attentions", verbose_name=("Orden de solucion "), on_delete=models.SET_NULL, null=True, blank=True)
     
     def __str__(self) -> str:
