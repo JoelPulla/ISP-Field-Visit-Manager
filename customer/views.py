@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.urls import reverse_lazy
 
@@ -14,6 +15,7 @@ def all_customers():
         return []
     return customers
 
+@login_required
 def detail_customer(request, id_customer):
     customer = get_object_or_404(Customer, id= id_customer)
     contracts = contracts_by_user(id_customer= id_customer)
@@ -23,6 +25,7 @@ def detail_customer(request, id_customer):
         "contracts": contracts
     })
 
+@login_required
 def create_customer(request ):
     
     if request.method == 'GET':

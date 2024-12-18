@@ -4,64 +4,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Órdenes del Usuario</title>
-    <!-- Puedes incluir aquí tus archivos CSS si los tienes -->
+    <!-- Importar Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Órdenes de Usuario</h1>
-    
-    <!-- Mostrar las órdenes en una tabla -->
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID de Orden</th>
-                <th>Tipo</th>
-                <th>Fecha Asignada</th>
-                <th>Hora Preferencial</th>
-                <th>Dirección</th>
-                <th>Nombre Cliente</th>
-                <th>Apellido Cliente</th>
-                <th> Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li class="alert {{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
+<body class="bg-gray-100 text-gray-900">
 
-            {% for order in ords %}
-                <tr>
-                    <td>{{ order.order_id }}</td>
-                    <td>{{ order.type }}</td>
-                    <td>{{ order.assigned_date }}</td>
-                    <td>{{ order.preferential_time }}</td>
-                    <td>{{ order.address }}</td>
-                    <td>{{ order.name }}</td>
-                    <td>{{ order.lat_name }}</td>
-                    <td> 
-                        <a href="{% url 'reschecule_order' order.order_id %}" >
-                            <button type="submit">reajendar</button>
-                        </a>
-                    </td>
-                    <td> 
-                        <a href="{% url 'complete_order' order.order_id %}" >
-                            {% csrf_token %}
-                            <button type="submit">Dar de baja </button>
-                        </a>
-                    </td>
-                    <td> 
-                        <form action="{% url 'cancel_order_by_user' order.order_id %}" method="POST">
-                            {% csrf_token %}
-                            <button type="submit">Marcar como cancelado</button>
-                        </form>
-                    </td>
-                </tr>
+    <!-- Encabezado -->
+    <header class="bg-blue-600 text-white fixed top-0 w-full z-10 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center py-3 px-4">
+            <h1 class="text-lg font-bold">Órdenes de Usuario</h1>
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="bg-red-500 px-4 py-2 text-sm rounded hover:bg-red-600 transition">
+                    Cerrar Sesión
+                </button>
+            </form>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="pt-20 pb-20 container mx-auto px-4">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Listado de Órdenes</h2>
+
+        <!-- Mensajes -->
+        {% if messages %}
+        <div class="mb-4">
+            {% for message in messages %}
+            <div class="p-3 rounded-lg text-white text-sm mb-2
+                {% if message.tags == 'success' %} bg-green-500
+                {% elif message.tags == 'error' %} bg-red-500
+                {% else %} bg-blue-500 {% endif %}">
+                {{ message }}
+            </div>
             {% endfor %}
-        </tbody>
-    </table>
+        </div>
+        {% endif %}
 
+        <!-- Tabla de Órdenes -->
+        <div class="overflow-x-auto bg-white rounded-lg shadow-md">
+            <table class="min-w-full border-collapse border border-gray-200">
+                <thead class="bg-blue-500 text-white">
+                    <tr>
+                        <th class="px-6 py-3 text-left">ID</th>
+                        <th class="px-6 py-3 text-left">Tipo</th>
+                        <th class="px-6 py-3 text-left">Fecha</th>
+                        <th class="px-6 py-3 text-left">Hora Preferencial</th>
+                        <th class="px-6 py-3 text-left">Dirección</th>
+                        <th class="px-6 py-3 text-left">Nombre</th>
+                        <th class="px-6 py-3 text-left">Apellido</th>
+                        <th class="px-6 py-3 text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="text-sm text-gray-700">
+                    {% for order in ords %}
+                    <tr class="hover:bg-gray-100">
+                        <td class="px-6 py-3 border border-gray-200">{{ order.order_id }}</td>
+                        <td class="px-6 py-3 border border-gray-200">{{ order.type }}</td>
+                        <td class="px-6 py-3 border border-gray-200">{{ order.assigned_date }}</td>
+                        <td class="px-6 py-3 border border-gray-200">{{ order.preferential_time }}</td>
+                        <td class="px-6 py-3 border border-gray-200">{{ order.address }}</td>
+                        <td class="px-6 py-3 border border-gray-200">{{ order.name }}</td>
+                        <td class="px-6 py-3 border border-gray-200">{{ order.lat_name }}</td>
+                        <td class="px-6 py-3 border border-gray-200 text-center space-y-2">
+                            <a href="{% url 'reschecule_order' order.order_id %}" class="block bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600">
+                                Reagendar
+                            </a>
+                            <a href="{% url 'complete_order' order.order_id %}" class="block bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">
+                                Dar de Baja
+                            </a>
+                            <form action="{% url 'cancel_order_by_user' order.order_id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="block bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">
+                                    Cancelar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Menú de Navegación Inferior -->
+    <nav class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 shadow-lg">
+        <div class="container mx-auto flex justify-around py-2">
+            <a href="" class="flex flex-col items-center text-blue-500 hover:text-blue-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16h8M8 12h8m-5-8h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2V6a2 2 0 012-2z" />
+                </svg>
+                <span class="text-sm">Órdenes</span>
+            </a>
+            <a href="" class="flex flex-col items-center text-gray-500 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 19.121A4.992 4.992 0 0110 17h4a4.992 4.992 0 014.879 2.121M15 11a4 4 0 10-8 0 4 4 0 008 0zM7 13h10a2 2 0 012 2v3a2 2 0 01-2 2H7a2 2 0 01-2-2v-3a2 2 0 012-2z" />
+                </svg>
+                <span class="text-sm">Perfil</span>
+            </a>
+            <a href="" class="flex flex-col items-center text-gray-500 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M9 21H7a2 2 0 01-2-2v-1a2 2 0 012-2h2m6 5h2a2 2 0 002-2v-1a2 2 0 00-2-2h-2m6-12H3m3-4h12a2 2 0 012 2v3a2 2 0 01-2 2H6a2 2 0 01-2-2V3a2 2 0 012-2z" />
+                </svg>
+                <span class="text-sm">Configuración</span>
+            </a>
+        </div>
+    </nav>
 </body>
 </html>

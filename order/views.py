@@ -1,15 +1,14 @@
-from django.shortcuts import render, get_object_or_404, redirect, get_list_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Order
+from .models import Order 
 from django.db.models import Q
-
 from contract.models import Contract
-from customer.models import Customer
 from .forms import OrderForm, UpdateOrderForm, CompleteOrderForm
 
 
 # Create your views here.
-
+@login_required
 def create_order(request, contract_id):
     contract = get_object_or_404(Contract, pk = contract_id)
     
@@ -43,6 +42,7 @@ def create_order(request, contract_id):
                 'form': form
             })
 
+@login_required
 def update_order(request,order_id):
     
     order = get_object_or_404(Order, pk = order_id)
@@ -74,13 +74,15 @@ def order_by_status(status):
         return []
     return orders
 
+
 def orders_by_contract(id_contract):
     orders = Order.objects.filter(contract_id =id_contract)
 
     if not orders:
         []
     return orders
-    
+ 
+@login_required   
 def orders(request):
     
     orders_pending = order_by_status(0)
@@ -94,6 +96,7 @@ def orders(request):
         'orders': orders
     })
 
+@login_required
 def delete_order(request, order_id):
     if request.method == 'POST':
         order = get_object_or_404(Order, pk= order_id)
@@ -116,10 +119,10 @@ def order_by_user(request):
         'name': order.contract.customer.name,
         'lat_name': order.contract.customer.last_name,
     } for order in orders]
-
     # Pasar los datos al template
     return render(request, "tecnical/home_orders.html", {'ords': ords})
-        
+
+@login_required        
 def reschecule_order(request, order_id):
     
     order = get_object_or_404(Order, pk=order_id)
@@ -139,7 +142,8 @@ def reschecule_order(request, order_id):
             return render(request, "order/reagender.html",{
                 'form': form
             })
-        
+
+@login_required        
 def complete_order(request, order_id):
     
     if request.method == "GET":
@@ -157,7 +161,8 @@ def complete_order(request, order_id):
         order.save()
         messages.success(request,f"Ordern {order_id} Data de baja")
         return redirect("order_by_user")  
-             
+
+@login_required             
 def cancel_order(request, order_id):
     order = get_object_or_404(Order, id = order_id)
     if request.method == "POST":

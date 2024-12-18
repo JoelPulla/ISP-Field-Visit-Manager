@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from order.views import orders_by_contract
+from django.contrib.auth.decorators import login_required
 
 from .forms import ContractForm
 from .models import Contract
@@ -22,6 +23,7 @@ def detail_contract(request, id_contract):
         'orders': orders
     }) 
     
+
 def create_contract(request, customer_id):
 
     if request.method == "GET":
@@ -41,6 +43,7 @@ def create_contract(request, customer_id):
             'form': form
         })
 
+
 def update_contract(request, contract_id, ):
     contract = get_object_or_404(Contract, pk = contract_id)
     
@@ -53,7 +56,8 @@ def update_contract(request, contract_id, ):
     form = ContractForm(request.POST, instance=contract)
     form.save()
     return redirect(request, "index",  )
-    
+   
+  
 def delete_contract(request, id_contract):
     print("HOLA MUNDO ESTE ES UN MESAJE DE PRUEBA ")
     
