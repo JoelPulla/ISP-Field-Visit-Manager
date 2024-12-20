@@ -3,7 +3,6 @@ Global Urls
 """
 from django.contrib import admin
 from django.urls import path, include
-
 from dash.views import HomeView
 
 
@@ -13,6 +12,5 @@ urlpatterns = [
     path('users/', include('users.urls') ),
     path("customer/", include("customer.urls")),
     path("contract/", include("contract.urls")),
-    path("orders/", include('order.urls'),)
-    
+    path("orders/", include('order.urls'),) 
 ]

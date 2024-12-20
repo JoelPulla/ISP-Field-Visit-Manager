@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'contract',
     'order',
     
-    
+    "rest_framework",
     "crispy_forms",
     "crispy_tailwind",
 
